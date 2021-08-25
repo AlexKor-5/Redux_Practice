@@ -6,8 +6,10 @@ import {MyReduxApp} from "./MyReduxApp/MyReduxApp";
 let destination = document.querySelector("#container");
 
 ReactDOM.render(
-    <div>
-        <MyReduxApp/>
-    </div>,
+    <>
+        <React.StrictMode>
+            <MyReduxApp/>
+        </React.StrictMode>
+    </>,
     destination
 );
