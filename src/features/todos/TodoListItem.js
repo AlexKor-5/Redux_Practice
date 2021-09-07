@@ -1,17 +1,21 @@
 import React from 'react';
 import {ReactComponent as TimesSolid} from './times-solid.svg';
+import {markCompleted} from "../actions";
+import {useDispatch} from "react-redux";
 
 
 const TodoListItem = ({todo}) => {
-    const {text, completed} = todo;
+    const dispatch = useDispatch();
+    const {text, completed, id} = todo;
+
     return (
         <li>
             <div className="view">
                 <div className="segment label">
                     <input className="toggle"
                            type="checkbox"
-                           checked={completed}
-                           // onChange={}
+                           defaultChecked={completed}
+                           onClick={() => dispatch(markCompleted(id, completed))}
                     />
                     <div className="todo-text">{text}</div>
                 </div>
