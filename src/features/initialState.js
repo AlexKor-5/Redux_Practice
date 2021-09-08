@@ -11,10 +11,16 @@ export let initialToDosState = [
         text: "do homework",
         completed: false,
         color: "blue"
+    },
+    {
+        id: "697-001",
+        text: "do nothing",
+        completed: false,
+        color: "red"
     }
 ];
 
 export let initialFiltersState = {
     filterStatus: "Active",
-    filterColors: ["red", "green", "blue", "pink", "brown", "yellow"]
+    filterColors: ["", "red", "green", "blue", "orange", "purple", "brown"]
 };

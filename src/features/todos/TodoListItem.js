@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ReactComponent as TimesSolid} from './times-solid.svg';
-import {markCompleted} from "../actions";
-import {useDispatch} from "react-redux";
+import {markCompleted, deleteToDo, addColor} from "../actions";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const TodoListItem = ({todo}) => {
     const dispatch = useDispatch();
-    const {text, completed, id} = todo;
+    const {text, id} = todo;
+    const completed = useSelector(state => state.todos.find(item => item.id === id).completed);
+    const colorNames = useSelector(state => state.filters.filterColors);
+    const [innerSelectColor, setInnerSelectColor] = useState("");
+
+    console.log(completed);
+    console.log("render TodoListItem");
+
+    const colorSetter = (e) => {
+        dispatch(addColor(id, e.target.value));
+        setInnerSelectColor(e.target.value);
+    }
 
     return (
         <li>
@@ -21,16 +32,15 @@ const TodoListItem = ({todo}) => {
                 </div>
 
                 <div className="segment buttons">
-                    <select className="colorPicker">
-                        <option value="">{""}</option>
-                        <option value="green">Green</option>
-                        <option value="blue">Blue</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="red">Red</option>
+                    <select className="colorPicker"
+                            onChange={colorSetter}
+                            style={{color: innerSelectColor}}
+                    >
+                        {colorNames.map((color, index) =>
+                            <option key={index} value={color}>{color.toUpperCase()}</option>)}
                     </select>
 
-                    <button className="destroy">
+                    <button className="destroy" onClick={() => dispatch(deleteToDo(id))}>
                         <TimesSolid/>
                     </button>
                 </div>
@@ -39,4 +49,4 @@ const TodoListItem = ({todo}) => {
     )
 }
 
-export default TodoListItem;
+export default React.memo(TodoListItem);

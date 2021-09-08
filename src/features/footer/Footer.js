@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import {useDispatch} from "react-redux";
+import {markAllCompleted} from "../actions";
 
 const RemainingTodos = ({count}) => {
     return (
@@ -58,11 +60,13 @@ const ColorFilters = ({color = "#000000"}) => {
 
 
 const Footer = () => {
+    const dispatch = useDispatch();
     return (
         <footer className="footer">
             <div className="actions">
                 <h5>Actions</h5>
-                <button className="button">
+                <button className="button"
+                        onClick={() => dispatch(markAllCompleted())}>
                     Mark All Completed
                 </button>
                 <button className="button">

@@ -8,7 +8,7 @@ const selectTodos = state => state.todos;
 const TodoList = () => {
     const todos = useSelector(selectTodos);
 
-    console.log(todos);
+    // console.log(todos);
     return (
         <ul className="todo-list">
             {
