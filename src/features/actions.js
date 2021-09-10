@@ -29,3 +29,12 @@ export const markAllCompleted = () => ({
     type: constants.markAllCompleted,
     payload: true
 });
+
+export const clearCompleted = (id = []) => ({
+    type: constants.clearCompleted,
+    payload: {id}
+})
+export const clearInput = () => ({
+    type: constants.clearInput,
+    payload: ""
+})

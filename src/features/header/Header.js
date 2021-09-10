@@ -1,15 +1,15 @@
 import React from 'react'
-import {changeInput} from "../actions";
+import {changeInput, addToDo, clearInput} from "../actions";
 import {useSelector, useDispatch} from "react-redux";
 
 const Header = () => {
     const inputValue = useSelector(state => state.input);
     const dispatch = useDispatch();
 
-    const consolePrint = (e) => {
-        console.log(e.keyCode);
+    const pressEnter = (e) => {
         if (e.keyCode === 13) {
-            console.log("add To do");
+            dispatch(addToDo(inputValue));
+            // dispatch(clearInput());
         }
     }
 
@@ -18,7 +18,7 @@ const Header = () => {
             <input className="new-todo"
                    placeholder={inputValue}
                    onChange={(e) => dispatch(changeInput(e.target.value))}
-                   onKeyUp={consolePrint}
+                   onKeyUp={pressEnter}
             />
         </header>
     )

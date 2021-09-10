@@ -1,6 +1,6 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
-import {markAllCompleted} from "../actions";
+import {useDispatch, useSelector} from "react-redux";
+import {markAllCompleted, clearCompleted} from "../actions";
 
 const RemainingTodos = ({count}) => {
     return (
@@ -58,9 +58,19 @@ const ColorFilters = ({color = "#000000"}) => {
     )
 }
 
-
 const Footer = () => {
     const dispatch = useDispatch();
+
+    const selectIds = (state) => {
+        let arrIds = [];
+        let completedToDos = state.todos.filter(todo => todo.completed);
+        if (completedToDos.length !== 0) {
+            arrIds = completedToDos.map(todo => todo.id);
+        }
+        return arrIds;
+    };
+    const ids = useSelector(selectIds);
+
     return (
         <footer className="footer">
             <div className="actions">
@@ -69,7 +79,7 @@ const Footer = () => {
                         onClick={() => dispatch(markAllCompleted())}>
                     Mark All Completed
                 </button>
-                <button className="button">
+                <button className="button" onClick={() => dispatch(clearCompleted(ids))}>
                     Clear Completed
                 </button>
             </div>

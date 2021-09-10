@@ -39,6 +39,10 @@ export default function todosReducer(state = initialToDosState, action) {
             });
         case constants.markAllCompleted:
             return state.map(todo => ({...todo, completed: action.payload}));
+        case constants.clearCompleted:
+            return state.filter(todo => {
+                return !action.payload.id.some(id => id === todo.id);
+            });
         default:
             return state;
     }
