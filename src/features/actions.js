@@ -33,8 +33,12 @@ export const markAllCompleted = () => ({
 export const clearCompleted = (id = []) => ({
     type: constants.clearCompleted,
     payload: {id}
-})
+});
 export const clearInput = () => ({
     type: constants.clearInput,
     payload: ""
+});
+export const changeFilterStatus = (value) => ({
+    type: constants.changeFilterStatus,
+    payload: value
 })

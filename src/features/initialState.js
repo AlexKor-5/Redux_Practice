@@ -21,6 +21,7 @@ export let initialToDosState = [
 ];
 
 export let initialFiltersState = {
-    filterStatus: "Active",
+    filterStatus: "All",
+    filterCountOfStatuses: ["All", "Active", "Completed"],
     filterColors: ["", "red", "green", "blue", "orange", "purple", "brown"]
 };

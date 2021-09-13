@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {markAllCompleted, clearCompleted} from "../actions";
+import useStatus from "../hooks/useStatus";
 
 const RemainingTodos = ({count}) => {
     return (
@@ -12,19 +13,28 @@ const RemainingTodos = ({count}) => {
 }
 
 const StatusFilter = () => {
+    const selectCountOfStatuses = state => state.filters.filterCountOfStatuses;
+    const selectCurrentStatus = state => state.filters.filterStatus;
+    const statuses = useSelector(selectCountOfStatuses);
+    const currentStatus = useSelector(selectCurrentStatus);
+    const [statusData] = useStatus();
+
+    const statusItems = (statuses = [], currentStatus) => {
+
+        return statuses.map((status, index) => {
+            return (
+                <li key={index}>
+                    <button {...statusData} className={currentStatus === status ? "selected" : ""}>{status}</button>
+                </li>
+            );
+        })
+    }
+
     return (
         <div className="filters statusFilters">
             <h5>Filter by Status</h5>
             <ul>
-                <li>
-                    <button className="selected">All</button>
-                </li>
-                <li>
-                    <button className="">Active</button>
-                </li>
-                <li>
-                    <button className="">Completed</button>
-                </li>
+                {statusItems(statuses, currentStatus)}
             </ul>
         </div>
     )
@@ -69,7 +79,17 @@ const Footer = () => {
         }
         return arrIds;
     };
+
+    const selectNumberOfRemainingToDos = state => {
+        let count = 0;
+        state.todos.forEach(todo => {
+            if (!todo.completed)
+                count++;
+        });
+        return count;
+    };
     const ids = useSelector(selectIds);
+    const count = useSelector(selectNumberOfRemainingToDos);
 
     return (
         <footer className="footer">
@@ -84,7 +104,7 @@ const Footer = () => {
                 </button>
             </div>
 
-            <RemainingTodos/>
+            <RemainingTodos count={count}/>
             <StatusFilter/>
             <ColorFilters/>
         </footer>
