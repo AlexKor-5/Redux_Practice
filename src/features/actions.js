@@ -41,4 +41,12 @@ export const clearInput = () => ({
 export const changeFilterStatus = (value) => ({
     type: constants.changeFilterStatus,
     payload: value
-})
+});
+export const addColorToFilter = (color) => ({
+    type: constants.addColorToFilter,
+    payload: color
+});
+export const removeColorInFilter = (color) => ({
+    type: constants.removeColorInFilter,
+    payload: color
+});

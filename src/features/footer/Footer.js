@@ -1,7 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {markAllCompleted, clearCompleted} from "../actions";
+import {markAllCompleted, clearCompleted, addColorToFilter, removeColorInFilter} from "../actions";
 import useStatus from "../hooks/useStatus";
+import setOfColors from "../data-colors";
 
 const RemainingTodos = ({count}) => {
     return (
@@ -42,27 +43,39 @@ const StatusFilter = () => {
 
 
 const ColorFilters = ({color = "#000000"}) => {
+    const dispatch = useDispatch();
+    const colors = useSelector(state => state.filters.filterColors);
+
+    const addColor = (color, checked) => {
+        if (!checked)
+            dispatch(addColorToFilter(color));
+        if (checked)
+            dispatch(removeColorInFilter(color));
+    }
+
+    const displaySetOfColors = (set = [], colors = []) => {
+        return set.map((color, index) => {
+            if (color === "") return false;
+            const checked = colors.includes(color);
+            return (
+                <label key={index}>
+                    <input type="checkbox"
+                           name={color}
+                           checked={checked}
+                           onChange={() => addColor(color, checked)}
+                    />
+                    <span className="color-block" style={{backgroundColor: color}}>{""}</span>
+                    {color}
+                </label>
+            );
+        })
+    }
+
     return (
         <div className="filters colorFilters">
             <h5>Filter by Color</h5>
             <form className="colorSelection">
-                <label>
-                    <input type="checkbox" name="green"/>
-                    <span className="color-block" style={{backgroundColor: "green"}}>{""}</span>
-                    Green
-                </label>
-
-                <label>
-                    <input type="checkbox" name="green"/>
-                    <span className="color-block" style={{backgroundColor: "red"}}>{""}</span>
-                    Red
-                </label>
-
-                <label>
-                    <input type="checkbox" name="green"/>
-                    <span className="color-block" style={{backgroundColor: "blue"}}>{""}</span>
-                    Blue
-                </label>
+                {displaySetOfColors(setOfColors, colors)}
             </form>
         </div>
     )

@@ -2,20 +2,29 @@ import React, {useState} from 'react';
 import {ReactComponent as TimesSolid} from './times-solid.svg';
 import {markCompleted, deleteToDo, addColor} from "../actions";
 import {useDispatch, useSelector} from "react-redux";
-// import setOfColors from "../data-colors";
+import setOfColors from "../data-colors";
 
 
 const TodoListItem = ({todo}) => {
     const dispatch = useDispatch();
     const {text, id} = todo;
     const completed = useSelector(state => state.todos.find(item => item.id === id).completed);
-    const colorNames = useSelector(state => state.filters.filterColors);
-    // const colorNames = setOfColors;
+    const colorNames = setOfColors;
     const [innerSelectColor, setInnerSelectColor] = useState("");
+    const colors = useSelector(state => state.filters.filterColors);
+
+    console.log(innerSelectColor);
 
     const colorSetter = (e) => {
         dispatch(addColor(id, e.target.value));
         setInnerSelectColor(e.target.value);
+    }
+
+    const displayColorOptions = (colors = []) => {
+        return colorNames.map((color, index) => {
+            return <option key={index}
+                           value={color}>{color.toUpperCase()}</option>
+        })
     }
 
     return (
@@ -32,11 +41,11 @@ const TodoListItem = ({todo}) => {
 
                 <div className="segment buttons">
                     <select className="colorPicker"
+                            value={todo.color}
                             onChange={colorSetter}
-                            style={{color: innerSelectColor}}
+                            style={{color: todo.color}}
                     >
-                        {colorNames.map((color, index) =>
-                            <option key={index} value={color}>{color.toUpperCase()}</option>)}
+                        {displayColorOptions(colors)}
                     </select>
 
                     <button className="destroy" onClick={() => dispatch(deleteToDo(id))}>

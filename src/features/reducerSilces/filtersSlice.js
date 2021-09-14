@@ -7,6 +7,19 @@ export default function filtersReducer(state = initialFiltersState, action) {
             return {
                 ...state,
                 filterStatus: action.payload
+            };
+        case constants.addColorToFilter:
+            return {
+                ...state,
+                filterColors: [
+                    ...state.filterColors,
+                    action.payload
+                ]
+            };
+        case constants.removeColorInFilter:
+            return {
+                ...state,
+                filterColors: state.filterColors.filter(color => color !== action.payload)
             }
         default:
             return state

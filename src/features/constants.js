@@ -7,5 +7,7 @@ export const constants = {
     deleteToDo: "todos/deleteTodo",
     addColor: "todos/addColor",
     clearCompleted: "todos/clearCompleted",
-    changeFilterStatus: "filters/changeFilterStatus"
+    changeFilterStatus: "filters/changeFilterStatus",
+    addColorToFilter: "filter/addColorToFilter",
+    removeColorInFilter: "filter/removeColorInFilter",
 };
