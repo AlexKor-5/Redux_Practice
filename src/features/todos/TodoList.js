@@ -53,25 +53,3 @@ const TodoList = () => {
     )
 }
 export default TodoList;
-
-
-// switch (status) {
-//     case "All":
-//         return () => todos.map((item) => {
-//             return todo(item);
-//         });
-//     case "Active":
-//         return () => todos.map((item) => {
-//             if (item.completed) return false
-//             return todo(item);
-//         });
-//     case "Completed":
-//         return () => todos.map((item) => {
-//             if (!item.completed) return false
-//             return todo(item);
-//         });
-//     default:
-//         return () => todos.map((item) => {
-//             return todo(item);
-//         });
-// }
