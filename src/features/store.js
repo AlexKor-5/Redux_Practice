@@ -1,9 +1,13 @@
-import {createStore} from 'redux';
-import rootReducer from "./reducer";
-import {logStore} from "./enhancers/logStore";
-import {composeWithDevTools} from 'redux-devtools-extension';
+import {configureStore} from "@reduxjs/toolkit";
+import inputReducer from "./reducerSilces/inputSlice";
+import todosReducer from "./reducerSilces/todosSlice";
+import filtersReducer from "./reducerSilces/filtersSlice";
 
-const composedEnhancer = composeWithDevTools(logStore);
-
-const store = createStore(rootReducer, undefined, composedEnhancer);
+const store = configureStore({
+    reducer: {
+        input: inputReducer,
+        todos: todosReducer,
+        filters: filtersReducer
+    }
+});
 export default store;
