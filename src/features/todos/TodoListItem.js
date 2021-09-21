@@ -1,9 +1,8 @@
 import React from 'react';
 import {ReactComponent as TimesSolid} from './times-solid.svg';
-import {addColor} from "../actions";
 import {useDispatch, useSelector} from "react-redux";
 import setOfColors from "../data-colors";
-import {markCompleted, deleteToDo} from "../reducerSilces/todosSlice";
+import {markCompleted, deleteToDo, addColor} from "../reducerSilces/todosSlice";
 
 
 const TodoListItem = ({todo}) => {
@@ -12,10 +11,9 @@ const TodoListItem = ({todo}) => {
     const completed = useSelector(state => state.todos.find(item => item.id === id).completed);
     const colorNames = setOfColors;
     const colors = useSelector(state => state.filters.filterColors);
-    // const todos = useSelector(state => state.todos);
 
     const colorSetter = (e) => {
-        dispatch(addColor(id, e.target.value));
+        dispatch(addColor({id, newColorValue: e.target.value}));
     }
 
     const displayColorOptions = (colors = []) => {

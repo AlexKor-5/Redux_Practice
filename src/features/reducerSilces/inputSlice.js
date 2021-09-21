@@ -1,13 +1,17 @@
 import {initialInputState} from "../initialState";
-import {constants} from "../constants";
+import {createSlice} from "@reduxjs/toolkit";
 
-export default function inputReducer(state = initialInputState, action) {
-    switch (action.type) {
-        case constants.changeInput:
-            return action.payload;
-        case constants.clearInput:
+const inputReducer = createSlice({
+    name: "input",
+    initialState: initialInputState,
+    reducers: {
+        changeInput(state, action) {
             return action.payload
-        default:
-            return state
+        },
+        clearInput(state, action) {
+            return action.payload
+        }
     }
-}
+})
+export const {changeInput, clearInput} = inputReducer.actions
+export default inputReducer.reducer

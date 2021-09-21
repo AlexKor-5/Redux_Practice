@@ -1,27 +1,34 @@
 import {initialFiltersState} from "../initialState";
-import {constants} from "../constants";
+import {createSlice} from "@reduxjs/toolkit";
 
-export default function filtersReducer(state = initialFiltersState, action) {
-    switch (action.type) {
-        case constants.changeFilterStatus:
+
+const filtersReducer = createSlice({
+    name: 'filters',
+    initialState: initialFiltersState,
+    reducers: {
+        changeFilterStatus(state, action) {
             return {
                 ...state,
                 filterStatus: action.payload
-            };
-        case constants.addColorToFilter:
+            }
+        },
+        addColorToFilter(state, action) {
             return {
                 ...state,
                 filterColors: [
                     ...state.filterColors,
                     action.payload
                 ]
-            };
-        case constants.removeColorInFilter:
+            }
+        },
+        removeColorInFilter(state, action) {
             return {
                 ...state,
                 filterColors: state.filterColors.filter(color => color !== action.payload)
             }
-        default:
-            return state
+        }
     }
-}
+})
+
+export const {changeFilterStatus, addColorToFilter, removeColorInFilter} = filtersReducer.actions
+export default filtersReducer.reducer

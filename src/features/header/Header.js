@@ -1,16 +1,16 @@
 import React, {useMemo} from 'react'
-import {changeInput, addToDo, clearInput} from "../actions";
+import {changeInput, clearInput} from "../reducerSilces/inputSlice";
+import {addToDo} from "../reducerSilces/todosSlice";
 import {useSelector, useDispatch} from "react-redux";
 
 const Header = () => {
     const inputValue = useSelector(state => state.input);
     const dispatch = useDispatch();
-    console.log("render Header Input");
 
     const pressEnter = (e) => {
         if (e.keyCode === 13) {
             dispatch(addToDo(inputValue));
-            dispatch(clearInput());
+            dispatch(clearInput(""));
         }
     }
 

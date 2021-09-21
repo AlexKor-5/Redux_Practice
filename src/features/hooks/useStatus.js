@@ -1,4 +1,4 @@
-import {changeFilterStatus} from "../actions";
+import {changeFilterStatus} from "../reducerSilces/filtersSlice";
 import {useDispatch} from "react-redux";
 
 export default function useStatus() {

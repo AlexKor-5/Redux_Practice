@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {markAllCompleted, clearCompleted, addColorToFilter, removeColorInFilter} from "../actions";
+import {markAllCompleted, clearCompleted} from "../reducerSilces/todosSlice";
+import {addColorToFilter, removeColorInFilter} from "../reducerSilces/filtersSlice";
 import useStatus from "../hooks/useStatus";
 import setOfColors from "../data-colors";
 
@@ -109,7 +110,7 @@ const Footer = () => {
             <div className="actions">
                 <h5>Actions</h5>
                 <button className="button"
-                        onClick={() => dispatch(markAllCompleted())}>
+                        onClick={() => dispatch(markAllCompleted(true))}>
                     Mark All Completed
                 </button>
                 <button className="button" onClick={() => dispatch(clearCompleted(ids))}>
