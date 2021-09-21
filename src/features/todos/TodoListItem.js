@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ReactComponent as TimesSolid} from './times-solid.svg';
-import {markCompleted, deleteToDo, addColor} from "../actions";
+import {addColor} from "../actions";
 import {useDispatch, useSelector} from "react-redux";
 import setOfColors from "../data-colors";
+import {markCompleted, deleteToDo} from "../reducerSilces/todosSlice";
 
 
 const TodoListItem = ({todo}) => {
@@ -10,14 +11,11 @@ const TodoListItem = ({todo}) => {
     const {text, id} = todo;
     const completed = useSelector(state => state.todos.find(item => item.id === id).completed);
     const colorNames = setOfColors;
-    const [innerSelectColor, setInnerSelectColor] = useState("");
     const colors = useSelector(state => state.filters.filterColors);
-
-    console.log(innerSelectColor);
+    // const todos = useSelector(state => state.todos);
 
     const colorSetter = (e) => {
         dispatch(addColor(id, e.target.value));
-        setInnerSelectColor(e.target.value);
     }
 
     const displayColorOptions = (colors = []) => {
@@ -48,7 +46,10 @@ const TodoListItem = ({todo}) => {
                         {displayColorOptions(colors)}
                     </select>
 
-                    <button className="destroy" onClick={() => dispatch(deleteToDo(id))}>
+                    <button className="destroy" onClick={() => {
+                        dispatch(deleteToDo(id))
+                        console.log("cross")
+                    }}>
                         <TimesSolid/>
                     </button>
                 </div>
